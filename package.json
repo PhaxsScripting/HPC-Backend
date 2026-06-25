@@ -4,10 +4,10 @@
   "description": "HPC Blacklist API - Vercel Serverless Function",
   "main": "index.js",
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "vercel-build": "next build"
+    "dev": "echo \"This project is API-only; use Vercel for local function testing\"",
+    "build": "echo \"No build required for this API-only deployment\"",
+    "start": "echo \"No start script required for this API-only deployment\"",
+    "vercel-build": "echo \"No build required for this API-only deployment\""
   },
   "keywords": [
     "vercel",
