@@ -2,7 +2,6 @@
   "name": "hpc-backend-main",
   "version": "1.0.0",
   "description": "HPC Blacklist API - Vercel Serverless Function",
-  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
