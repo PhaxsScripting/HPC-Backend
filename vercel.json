@@ -1,6 +1,7 @@
 {
-  "runtime": "nodejs18.x",
   "functions": {
-    "api/check/[userId].js": {}
+    "api/check/[userId].js": {
+      "runtime": "nodejs18"
+    }
   }
 }
