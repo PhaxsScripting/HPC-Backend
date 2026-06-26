@@ -23,9 +23,18 @@ module.exports = async function handler(req, res) {
   let dynamicList = [];
   try {
     dynamicList = (await kv.smembers("blacklist")) || [];
-  } catch (e) {}
+  } catch (e) {
+    console.error("[check] smembers failed:", e.message);
+  }
 
-  const allBlacklisted = new Set([...HARDCODED_BLACKLIST, ...dynamicList]);
+  // Force everything to strings — @vercel/kv auto-deserializes
+  // numeric-looking values back into JS numbers, which silently
+  // breaks Set.has() against a string userId.
+  const allBlacklisted = new Set([
+    ...HARDCODED_BLACKLIST.map(String),
+    ...dynamicList.map(String)
+  ]);
+
   const isBlacklisted = allBlacklisted.has(userIdStr);
 
   if (isBlacklisted) {
