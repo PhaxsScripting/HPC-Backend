@@ -14,7 +14,7 @@ const DEFAULT_BLACKLIST = [
 const DEFAULT_BLACKLISTED_MESSAGE = "YOU'RE BLACKLISTED, IDK WHY YOU THOUGHT YOU COULD COME IN HERE";
 const DEFAULT_ACCESS_GRANTED_MESSAGE = "Access granted"; // Not used for silent response
 
-export default function handler(req, res) {
+module.exports = function handler(req, res) {
   // Set CORS headers for frontend/game access
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
@@ -82,4 +82,4 @@ export default function handler(req, res) {
       // No styledMessage or action needed
     });
   }
-}
+};
