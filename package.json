@@ -1,18 +1,9 @@
 {
-  "name": "hpc-backend-main",
+  "name": "hpc-backend",
   "version": "1.0.0",
-  "description": "HPC Blacklist API - Vercel Serverless Function",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [
-    "vercel",
-    "serverless",
-    "api",
-    "blacklist",
-    "hpc"
-  ],
-  "author": "HPC Team",
   "license": "MIT",
-  "main": "index.js"
+  "main": "index.js",
+  "dependencies": {
+    "@vercel/kv": "^1.0.0"
+  }
 }
