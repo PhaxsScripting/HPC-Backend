@@ -1,7 +1,7 @@
 {
   "functions": {
     "api/check/[userId].js": {
-      "runtime": "nodejs18"
+      "maxDuration": 5
     }
   }
 }
