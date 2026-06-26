@@ -1,3 +1,1 @@
-module.exports = (req, res) => {
-  res.status(200).json({ msg: 'hello' });
-};
+module.exports = (req, res) => { res.status(200).json({msg: "hello"}); };
