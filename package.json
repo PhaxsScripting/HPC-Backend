@@ -4,10 +4,7 @@
   "description": "HPC Blacklist API - Vercel Serverless Function",
   "main": "index.js",
   "scripts": {
-    "dev": "echo \"This project is API-only; use Vercel for local function testing\"",
-    "build": "echo \"No build required for this API-only deployment\"",
-    "start": "echo \"No start script required for this API-only deployment\"",
-    "vercel-build": "echo \"No build required for this API-only deployment\""
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
     "vercel",
@@ -17,10 +14,5 @@
     "hpc"
   ],
   "author": "HPC Team",
-  "license": "MIT",
-  "dependencies": {
-    "next": "^14.2.3",
-    "react": "18.2.0",
-    "react-dom": "18.2.0"
-  }
+  "license": "MIT"
 }
