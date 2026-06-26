@@ -1,11 +1,6 @@
 const { kv } = require('@vercel/kv');
 
 const HARDCODED_BLACKLIST = [
-  "7282753926",
-  "12345678",
-  "87654321",
-  "11111111",
-  "22222222"
 ];
 
 const BLACKLISTED_MESSAGE = "YOU'RE BLACKLISTED, IDK WHY YOU THOUGHT YOU COULD COME IN HERE";
