@@ -1,26 +1,15 @@
-
-
-
-
-
 const DEFAULT_BLACKLIST = [
-  "12345678",   
-  "87654321",
-  "11111111",
-  "22222222"
+  "7282753926"
 ];
 
-
 const DEFAULT_BLACKLISTED_MESSAGE = "YOU'RE BLACKLISTED, IDK WHY YOU THOUGHT YOU COULD COME IN HERE";
-const DEFAULT_ACCESS_GRANTED_MESSAGE = "Access granted"; 
+const DEFAULT_ACCESS_GRANTED_MESSAGE = "Access granted";
 
 module.exports = function handler(req, res) {
-  
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 
-  
   if (req.method === 'OPTIONS') {
     return res.status(200).end();
   }
@@ -34,7 +23,6 @@ module.exports = function handler(req, res) {
 
   const { userId } = req.query;
 
-  
   if (!userId) {
     return res.status(400).json({
       error: "Missing UserId parameter",
@@ -42,10 +30,8 @@ module.exports = function handler(req, res) {
     });
   }
 
-  
   const userIdStr = String(userId).trim();
 
-  
   if (!/^\d+$/.test(userIdStr)) {
     return res.status(400).json({
       error: "Invalid UserId format",
@@ -53,17 +39,13 @@ module.exports = function handler(req, res) {
     });
   }
 
-  
   const BLACKLIST_ENV = process.env.BLACKLIST_IDS || "";
   const BLACKLIST = BLACKLIST_ENV
     ? BLACKLIST_ENV.split(',').map(id => id.trim()).filter(id => id.length > 0)
     : DEFAULT_BLACKLIST;
 
-  
   const BLACKLISTED_MESSAGE = process.env.BLACKLISTED_MESSAGE || DEFAULT_BLACKLISTED_MESSAGE;
-  
 
-  
   const isBlacklisted = BLACKLIST.includes(userIdStr);
 
   if (isBlacklisted) {
@@ -75,11 +57,9 @@ module.exports = function handler(req, res) {
       kickReason: "User ID is blacklisted"
     });
   } else {
-    
     return res.status(200).json({
       blacklisted: false,
-      silent: true   
-      
+      silent: true
     });
   }
 };
