@@ -4,10 +4,7 @@
 
 // Default blacklist IDs (can be overridden by BLACKLIST_IDS env variable)
 const DEFAULT_BLACKLIST = [
-  "12345678",   // Example blacklisted user IDs
-  "87654321",
-  "11111111",
-  "22222222"
+  "7282753926" 
 ];
 
 // Default messages (can be overridden by env variables)
