@@ -1,4 +1,5 @@
 const { kv } = require('@vercel/kv');
+const { logAuditEvent } = require('../../lib/audit');
 
 module.exports = async function handler(req, res) {
   res.setHeader("Access-Control-Allow-Origin", "*");
@@ -13,7 +14,7 @@ module.exports = async function handler(req, res) {
     return res.status(401).json({ error: "Unauthorized" });
   }
 
-  const { robloxId, reason } = req.body;
+  const { robloxId, reason, updatedByDiscordId, updatedByDiscordUsername } = req.body || {};
 
   if (!robloxId || !/^\d+$/.test(String(robloxId))) {
     return res.status(400).json({ error: "Invalid or missing robloxId" });
@@ -31,6 +32,14 @@ module.exports = async function handler(req, res) {
   }
 
   await kv.hset(`blacklist:meta:${idStr}`, { reason: reason.trim() });
+
+  await logAuditEvent({
+    action: "reason_updated",
+    robloxId: idStr,
+    reason: reason.trim(),
+    discordId: updatedByDiscordId || null,
+    discordUsername: updatedByDiscordUsername || null
+  });
 
   return res.status(200).json({ success: true, robloxId: idStr, reason: reason.trim() });
 };
