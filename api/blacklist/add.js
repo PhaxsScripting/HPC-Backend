@@ -13,7 +13,7 @@ module.exports = async function handler(req, res) {
     return res.status(401).json({ error: "Unauthorized" });
   }
 
-  const { robloxId, robloxUsername, discordId, discordUsername } = req.body;
+  const { robloxId, robloxUsername, discordId, discordUsername, reason, expiresAt } = req.body;
 
   if (!robloxId || !/^\d+$/.test(String(robloxId))) {
     return res.status(400).json({ error: "Invalid or missing robloxId" });
@@ -21,14 +21,18 @@ module.exports = async function handler(req, res) {
 
   const idStr = String(robloxId);
 
-  await kv.sadd("blacklist", idStr);
-  await kv.hset(`blacklist:meta:${idStr}`, {
+  const metaData = {
     robloxId: idStr,
     robloxUsername: robloxUsername || "unknown",
     discordId: discordId || "unknown",
     discordUsername: discordUsername || "unknown",
     addedAt: new Date().toISOString()
-  });
+  };
+  if (reason) metaData.reason = reason;
+  if (expiresAt) metaData.expiresAt = expiresAt;
+
+  await kv.sadd("blacklist", idStr);
+  await kv.hset(`blacklist:meta:${idStr}`, metaData);
 
   return res.status(200).json({ success: true, blacklisted: idStr });
 };
