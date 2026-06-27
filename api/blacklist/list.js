@@ -30,7 +30,9 @@ module.exports = async function handler(req, res) {
               robloxUsername: meta.robloxUsername || "Unknown",
               discordUsername: meta.discordUsername || "Unknown",
               discordId: meta.discordId || "Unknown",
-              addedAt: meta.addedAt || null
+              addedAt: meta.addedAt || null,
+              reason: meta.reason || null,
+              expiresAt: meta.expiresAt || null
             };
           } else {
             return {
@@ -38,12 +40,14 @@ module.exports = async function handler(req, res) {
               robloxUsername: "Unknown",
               discordUsername: "Unknown",
               discordId: "Unknown",
-              addedAt: null
+              addedAt: null,
+              reason: null,
+              expiresAt: null
             };
           }
         } catch (e) {
           console.error(`[list] hgetall failed for ${id}:`, e.message);
-          return { robloxId: String(id), robloxUsername: "Unknown", discordUsername: "Unknown" };
+          return { robloxId: String(id), robloxUsername: "Unknown", discordUsername: "Unknown", reason: null, expiresAt: null };
         }
       })
     );
