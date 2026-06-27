@@ -1,4 +1,5 @@
 const { kv } = require('@vercel/kv');
+const { checkRateLimit, getClientIp } = require('../../lib/ratelimit');
 
 const HARDCODED_BLACKLIST = [
 ];
@@ -12,6 +13,19 @@ module.exports = async function handler(req, res) {
 
   if (req.method === "OPTIONS") return res.status(200).end();
   if (req.method !== "GET") return res.status(405).json({ error: "Method not allowed" });
+
+  // Lightweight per-IP rate limit — this endpoint is public/unauthenticated
+  // by design (Roblox calls it directly), so it needs its own protection
+  // against being hammered.
+  const clientIp = getClientIp(req);
+  const { allowed, retryAfterSeconds } = await checkRateLimit(`check:${clientIp}`, {
+    limit: 30,
+    windowSeconds: 10
+  });
+  if (!allowed) {
+    res.setHeader("Retry-After", String(retryAfterSeconds));
+    return res.status(429).json({ error: "Too many requests — slow down." });
+  }
 
   const { userId } = req.query;
 
