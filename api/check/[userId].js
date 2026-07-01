@@ -4,7 +4,7 @@ const { checkRateLimit, getClientIp } = require('../../lib/ratelimit');
 const HARDCODED_BLACKLIST = [
 ];
 
-const BLACKLISTED_MESSAGE = "YOU'RE BLACKLISTED, IDK WHY YOU THOUGHT YOU COULD COME IN HERE";
+const BLACKLISTED_MESSAGE = "THIS IS YOUR FAULT AKZ";
 
 module.exports = async function handler(req, res) {
   res.setHeader("Access-Control-Allow-Origin", "*");
