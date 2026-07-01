@@ -2,6 +2,7 @@ const { kv } = require('@vercel/kv');
 const { checkRateLimit, getClientIp } = require('../../lib/ratelimit');
 
 const HARDCODED_BLACKLIST = [
+  "3048203805"
 ];
 
 const BLACKLISTED_MESSAGE = "THIS IS YOUR FAULT AKZ";
